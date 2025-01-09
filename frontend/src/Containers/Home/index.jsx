@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FaMicrophone, FaMicrophoneSlash, FaLocationArrow } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
+import axios from "axios"; // Import Axios for HTTP requests
 import "./index.css";
 
 const Home = () => {
@@ -14,15 +15,23 @@ const Home = () => {
     setIsRecording((prevState) => !prevState);
   };
 
-  // Mock fetch response for toxicity analysis
-  const analyzeComment = () => {
-    const mockResponse = {
-      toxicity_score: Math.random().toFixed(2), // Random percentage for simulation
-      toxic: Math.random() > 0.5, // Random boolean for toxic or non-toxic
-    };
+  // Fetch response for toxicity analysis from the backend
+  const analyzeComment = async () => {
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/classify", { text: comment });
 
-    setToxicity((mockResponse.toxicity_score * 100).toFixed(0)); // Convert to percentage
-    setIsToxic(mockResponse.toxic);
+      // Extract the response data
+      const { toxicity_score, toxic } = response.data;
+
+      // Update state with backend response
+      setToxicity((toxicity_score * 100).toFixed(0)); // Convert to percentage
+      setIsToxic(toxic);
+    } catch (error) {
+      console.error("Error analyzing comment:", error);
+      setToxicity(null);
+      setIsToxic(null);
+      alert("Failed to analyze comment. Please try again later.");
+    }
   };
 
   // Clear the input and analysis results
@@ -91,17 +100,6 @@ const Home = () => {
             )}
           </div>
         </div>
-        {/* <div className="chat-actions">
-          {comment ? (
-            <button className="btn send-btn" onClick={analyzeComment}>
-              <FaLocationArrow size={16} />
-            </button>
-          ) : (
-            <button className="btn sound-btn" onClick={toggleMicrophone}>
-              {isRecording ? <FaMicrophoneSlash size={16} /> : <FaMicrophone size={16} />}
-            </button>
-          )}
-        </div> */}
       </div>
     </div>
   );
