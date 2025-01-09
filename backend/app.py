@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from tensorflow.keras.models import load_model
 import pickle
 import numpy as np
+import os
 
 
 class ToxicCommentAPI:
@@ -75,4 +76,5 @@ if __name__ == "__main__":
     model_file = "toxic_comment_cnn.h5"  # Adjust path as necessary
     vectorizer_file = "tfidf_vectorizer.pkl"
     app = create_app(model_file, vectorizer_file)
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Default to 5000 if PORT is not set
+    app.run(host="0.0.0.0", port=port)
