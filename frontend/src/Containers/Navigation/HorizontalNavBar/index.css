@@ -1,9 +1,10 @@
 /* General Navigation Bar */
-.navbar {
+nav {
   height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* padding: 1rem 2rem; */
   padding: 10px 20px;
   background: white;
   position: sticky;
@@ -13,36 +14,67 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.navbar-logo {
-  display: flex;
-  align-items: center;
-}
-
+/* Logo Styling */
 .logo-icon {
   height: 50px;
+  width: auto;
   margin-right: 10px;
 }
 
+.logo-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #051f20; /* Brand color */
+  display: none; /* Hidden on mobile by default */
+}
+
+/* Link Styling */
+.link {
+  text-decoration: none;
+  color: black;
+  font-size: 1rem;
+  padding: 0 1rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.link.active {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Underline effect for active link */
+.link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #051f20; /* Brand underline color */
+  border-radius: 2px;
+}
+
+/* Hover underline effect for inactive links */
+.link:not(.active):hover::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #bbb;
+  width: 100%;
+}
+
+/* Menu Items */
 .menu-items {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.menu-items a {
-  text-decoration: none;
-  color: black;
-  font-size: 1rem;
-  transition: color 0.3s;
-}
-
-.menu-items a:hover {
-  color: #007bff;
-}
-
-.menu-items a.active {
-  font-weight: bold;
-  color: #007bff;
 }
 
 /* Icons Section */
@@ -58,60 +90,42 @@
 }
 
 .github-icon:hover {
-  color: #007bff;
+  color: #051f20; /* Brand hover color */
 }
 
 /* Mobile Menu Icon */
 .mobile-menu-icon {
   display: none;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 25px;
-  height: 20px;
+  font-size: 1.5rem;
   cursor: pointer;
-}
-
-.mobile-menu-icon .bar {
-  width: 100%;
-  height: 3px;
-  background-color: black;
-  transition: all 0.3s;
 }
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
   .menu-items {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    padding: 10px 0;
-    z-index: 99;
+    display: none; /* Hide menu items on mobile */
   }
 
-  .menu-items.active {
-    display: flex;
+  .logo-name {
+    display: none; /* Keep logo text hidden on smaller screens */
   }
 
   .mobile-menu-icon {
-    display: flex;
+    display: block;
+    color: black;
   }
 }
 
 @media screen and (max-width: 480px) {
-  .navbar {
-    padding: 10px;
+  nav {
+    padding: 1rem;
   }
 
   .logo-icon {
-    height: 40px;
+    height: 40px; /* Adjust logo size for smaller screens */
   }
 
-  .menu-items a {
+  .link {
     font-size: 0.9rem;
   }
 }

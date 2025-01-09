@@ -1,12 +1,176 @@
-.home {
-  padding: 20px;
+/* Home Container */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background-color: #1e1e1e;
+  color: white;
+  height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Analysis Section */
+.analysis-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.donut-chart {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.donut-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(
+    #00c853 85%,
+    /* Toxic percentage */ #ddd 15% /* Remaining */
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-percentage {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.result-status {
   text-align: center;
 }
 
-h1 {
-  color: #333;
+.result-status h2 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-form {
-  margin-top: 20px;
+.toxicity-result {
+  font-size: 1.2rem;
+}
+
+.toxic-status {
+  font-weight: bold;
+  color: #00c853;
+}
+
+/* Chat Section */
+.chat-section {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.chat-input-wrapper {
+  position: relative;
+  width: 100%;
+  /* border: 1px solid #333; */
+  background-color: #333;
+  border-radius: 25px;
+  padding: 0.5rem;
+}
+
+.chat-input {
+  width: 100%;
+  height: 100px;
+  border: none;
+  border-radius: 25px;
+  padding: 0.75rem 3rem 0.75rem 1rem; /* Added right padding for clear button */
+  font-size: 1rem;
+  resize: none;
+  background-color: #333;
+  color: white;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Clear Button */
+.clear-button {
+  position: absolute;
+  top: 20%;
+  right: 20px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Chat Actions */
+.chat-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 1rem;
+  /* border: 1px solid red; */
+}
+
+.btn {
+  width: 50px; /* Set equal width and height for a circular button */
+  height: 50px;
+  font-size: 1rem;
+  color: white;
+  background-color: #444;
+  border: none;
+  border-radius: 50%; /* Makes the button circular */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centers the icon/text inside the button */
+}
+
+.send-btn {
+  background-color: #444;
+}
+
+.sound-btn {
+  background-color: #444;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .home-container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .donut-chart {
+    width: 120px;
+    height: 120px;
+  }
+
+  .donut-percentage {
+    font-size: 1.2rem;
+  }
+
+  .chat-input {
+    /* height: 40px;  */
+    font-size: 0.9rem;
+  }
+
+  .chat-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn {
+    padding: 0.5rem; /* Smaller buttons for mobile */
+    font-size: 0.9rem;
+  }
 }
