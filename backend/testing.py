@@ -1,6 +1,8 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 from tensorflow.keras.models import load_model
 import pickle
+import numpy as np
+
 
 # Load trained model and TfidfVectorizer
 model = load_model("../backend/toxic_comment_cnn.h5")
@@ -15,6 +17,10 @@ sample_texts = [
     "I hate you and everything about you.",
     "What a wonderful day to spread joy!",
     "You're so stupid and worthless.",
+    "I love you!",
+    "Jacky is pig",
+    "beautiful",
+    "Beautiful Beautiful Beautiful Beautiful Beautiful Beautiful Beautiful Beautiful Beautiful Beautiful ",
 ]
 
 # Vectorize and predict
