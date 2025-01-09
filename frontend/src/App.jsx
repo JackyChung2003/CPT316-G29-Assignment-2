@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./Containers/Home";
 import NotFound from "./Containers/Notfound";

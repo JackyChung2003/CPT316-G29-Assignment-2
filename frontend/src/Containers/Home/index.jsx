@@ -1,19 +1,16 @@
 import React, { useState } from "react";
-import { FaMicrophone, FaMicrophoneSlash, FaLocationArrow } from "react-icons/fa";
+import { FaLocationArrow } from "react-icons/fa";
 import { IoCloseSharp } from "react-icons/io5";
 import axios from "axios"; // Import Axios for HTTP requests
 import "./index.css";
 
+import Speedometer from "../../Component/SpeedMeter";
 const Home = () => {
   const [comment, setComment] = useState(""); // User input
   const [toxicity, setToxicity] = useState(null); // Toxicity percentage
   const [isToxic, setIsToxic] = useState(null); // Toxic/Non-Toxic result
-  const [isRecording, setIsRecording] = useState(false); // Microphone toggle state
+  const [toxicityLabel, setToxicityLabel] = useState("Unknown"); // Label for toxicity level
 
-  // Toggle microphone recording state
-  const toggleMicrophone = () => {
-    setIsRecording((prevState) => !prevState);
-  };
 
   // Fetch response for toxicity analysis from the backend
   const analyzeComment = async () => {
@@ -26,10 +23,23 @@ const Home = () => {
       // Update state with backend response
       setToxicity((toxicity_score * 100).toFixed(0)); // Convert to percentage
       setIsToxic(toxic);
+
+      // Determine toxicity label
+      let label = "Unknown";
+      if (toxicity_score >= 0.8) {
+        label = "Toxic";
+      } else if (toxicity_score >= 0.5) {
+        label = "Moderate Toxicity";
+      } else {
+        label = "Low Toxicity/Non-Toxic";
+      }
+      setToxicityLabel(label);
+
     } catch (error) {
       console.error("Error analyzing comment:", error);
       setToxicity(null);
       setIsToxic(null);
+      setToxicityLabel("Error");
       alert("Failed to analyze comment. Please try again later.");
     }
   };
@@ -39,6 +49,7 @@ const Home = () => {
     setComment("");
     setToxicity(null);
     setIsToxic(null);
+    setToxicityLabel("Unknown");
   };
 
   return (
@@ -46,29 +57,22 @@ const Home = () => {
       {/* Analysis Section */}
       <div className="analysis-section">
         <div className="donut-chart">
-          <div
-            className="donut-circle"
-            style={{
-              background: `conic-gradient(
-                ${isToxic ? "#f44336" : "#00c853"} ${toxicity || 0}%,
-                #ddd ${toxicity || 0}%
-              )`,
-            }}
-          >
-            <span className="donut-percentage">{toxicity || 0}%</span>
-          </div>
+          <Speedometer value={toxicity || 0} />
         </div>
         <div className="result-status">
           <h2>Analysis Result</h2>
           <p className="toxicity-result">
             The comment is{" "}
-            <span
-              className="toxic-status"
-              style={{
-                color: isToxic === null ? "#bbb" : isToxic ? "#f44336" : "#00c853",
-              }}
+             <span
+              className={`toxic-status ${
+                toxicityLabel === "Toxic"
+                  ? "high"
+                  : toxicityLabel === "Moderate Toxicity"
+                  ? "moderate"
+                  : "low"
+              }`}
             >
-              {isToxic === null ? "Unknown" : isToxic ? "Toxic" : "Non-Toxic"}
+              {toxicityLabel}
             </span>
           </p>
         </div>
@@ -89,15 +93,13 @@ const Home = () => {
             </button>
           )}
           <div className="chat-actions">
-            {comment ? (
-              <button className="btn send-btn" onClick={analyzeComment}>
-                <FaLocationArrow size={16} />
-              </button>
-            ) : (
-              <button className="btn sound-btn" onClick={toggleMicrophone}>
-                {isRecording ? <FaMicrophoneSlash size={16} /> : <FaMicrophone size={16} />}
-              </button>
-            )}
+            <button
+              className={`btn send-btn ${comment ? "active" : "inactive"}`}
+              onClick={analyzeComment}
+              disabled={!comment}
+            >
+              <FaLocationArrow size={16} />
+            </button>
           </div>
         </div>
       </div>
