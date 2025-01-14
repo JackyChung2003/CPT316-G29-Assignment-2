@@ -131,16 +131,64 @@ Develop a web-based application to classify text as toxic or non-toxic using mac
 
 ### Prerequisites
 
-1. Install Python (>= 3.8) and Node.js.
-2. Install necessary Python and Node.js dependencies.
+1. **Install Dependencies**:
 
-### Backend Setup
+   - **Python**: Ensure Python (>= 3.8) is installed. [Download Python](https://www.python.org/downloads/)
+   - **Node.js**: Install Node.js. [Download Node.js](https://nodejs.org/)
+   - **Git**: Install Git. [Download Git](https://git-scm.com/)
+   - **Git LFS**: Install Git Large File Storage (LFS). [Download Git LFS](https://git-lfs.github.com/)
+
+2. **Verify Installation**:
+   Run the following commands to confirm the tools are installed:
+   ```bash
+   python --version
+   node --version
+   npm --version
+   git --version
+   git lfs --version
+   ```
+
+---
+
+### Step 1: Clone the Repository
+
+1. Open your terminal and clone the repository:
+   ```bash
+   git clone https://github.com/JackyChung2003/CPT316-G29-Assignment-2.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd CPT316-G29-Assignment-2
+   ```
+
+---
+
+### Step 2: Handle Large Files (Git LFS)
+
+1. **Install Git LFS (if not installed)**:
+   ```bash
+   git lfs install
+   ```
+2. **Download the large files**:
+   ```bash
+   git lfs pull
+   ```
+3. **Wait for the large files to download**:
+   - The process may take a few minutes depending on your internet speed.
+   - You can verify the large files are downloaded:
+     ```bash
+     git lfs ls-files
+     ```
+
+---
+
+### Step 3: Backend Setup
 
 1. Navigate to the `backend` directory:
    ```bash
    cd backend
    ```
-2. Install dependencies:
+2. Install Python dependencies:
    ```bash
    pip install -r requirements.txt
    ```
@@ -148,15 +196,19 @@ Develop a web-based application to classify text as toxic or non-toxic using mac
    ```bash
    python app.py --model toxic_comment_cnn.h5 --vectorizer tfidf_vectorizer.pkl --port 5000
    ```
-4. If needed, preprocess data and retrain the model using `data_preprocessing.py` and `train_model.py`.
+4. (Optional) Preprocess data and retrain the model:
+   - Use `data_preprocessing.py` for data preparation.
+   - Use `train_model.py` to train the model.
 
-### Frontend Setup
+---
+
+### Step 4: Frontend Setup
 
 1. Navigate to the `frontend` directory:
    ```bash
-   cd frontend
+   cd ../frontend
    ```
-2. Install dependencies:
+2. Install Node.js dependencies:
    ```bash
    npm install
    ```
@@ -165,23 +217,25 @@ Develop a web-based application to classify text as toxic or non-toxic using mac
    npm run dev
    ```
 
-### Running the Application
+---
 
-1. Open the React app in your browser (usually `http://localhost:5173`).
-2. Enter a comment in the input box and click **Send** to analyze.
-3. Open another terminal to monitor the Flask backend running at `http://127.0.0.1:5000`.
+### Step 5: Run the Application
 
-### Test Cases
+1. Open the React app in your browser:
+   - The default URL is usually: [http://localhost:5173](http://localhost:5173)
+2. Use the chatbox to enter comments and analyze their toxicity.
+3. Monitor the Flask backend in a separate terminal:
+   - The backend runs at: [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-- **Example 1**:
-  - Input: `"You are so stupid and horrible."`
-  - Expected Output: Toxic with high toxicity score.
-- **Example 2**:
-  - Input: `"I hope you have a great day!"`
-  - Expected Output: Non-toxic with low toxicity score.
-- **Example 3**:
-  - Input: `"This is such a waste of time."`
-  - Expected Output: Likely toxic with medium toxicity score.
+---
+
+### Additional Notes
+
+- **Handling Errors**: If you encounter errors during setup, check that all dependencies are installed and the Git LFS files are fully downloaded.
+- **Git LFS Verification**: Run the following command to list large files:
+  ```bash
+  git lfs ls-files
+  ```
 
 ---
 
