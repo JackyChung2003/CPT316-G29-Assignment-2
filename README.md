@@ -1,6 +1,6 @@
 # CPT316-G29-Assignment-2 
 
-# ToxiCheck: A Toxic Comment Classification System
+# ToxiCheck: A Toxic Comment Classification System 
 
 <img alt="ToxiCheck Logo" align="right" src="frontend/src/assets/images/ToxiCheck-logo.png" width="20%" />
 
